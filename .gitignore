@@ -1,29 +1,46 @@
+### OS
+.DS_Store
 
-### Eclipse ###
-.apt_generated
+### Logs
+*.log
+hs_err_pid*
+
+### Build
+target/
+out/
+build/
+
+### Compiled files
+*.class
+
+### Archives
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+### IntelliJ IDEA
+.idea/
+*.iml
+
+### Eclipse
+.apt_generated/
 .classpath
 .factorypath
 .project
-.settings
+.settings/
 .springBeans
-.sts4-cache
+.sts4-cache/
 
-### NetBeans ###
+### NetBeans
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
 
-### VS Code ###
+### VS Code
 .vscode/
-
-### Mac OS ###
-.DS_Store
-
-.idea
-
-target
