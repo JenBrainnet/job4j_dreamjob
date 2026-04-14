@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<body>
+<div class="container">
+    <div class="row">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Creation Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="vacancy: ${vacancies}">
+                <td th:text="${vacancy.id}" />
+                <td th:text="${vacancy.title}" />
+                <td th:text="${vacancy.description}" />
+                <td th:text="${{vacancy.creationDate}}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>
