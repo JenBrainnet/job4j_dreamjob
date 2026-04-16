@@ -14,7 +14,10 @@ public class Vacancy {
     private String description;
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private LocalDateTime creationDate;
+    private LocalDateTime creationDate = LocalDateTime.now();
+
+    public Vacancy() {
+    }
 
     public Vacancy(int id,
                    String title,
