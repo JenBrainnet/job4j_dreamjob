@@ -14,7 +14,10 @@ public class Candidate {
     private String description;
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    public Candidate() {
+    }
 
     public Candidate(int id,
                      String name,
