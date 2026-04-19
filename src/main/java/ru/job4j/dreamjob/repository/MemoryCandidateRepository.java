@@ -20,22 +20,22 @@ public class MemoryCandidateRepository implements CandidateRepository {
     public MemoryCandidateRepository() {
         save(new Candidate(0, "Ivan Ivanov",
                 "Junior Java Developer with basic Spring knowledge",
-                LocalDateTime.now()));
+                LocalDateTime.now(), 1));
         save(new Candidate(0, "Petr Petrov",
                 "Middle Java Developer experienced in REST APIs",
-                LocalDateTime.now()));
+                LocalDateTime.now(), 2));
         save(new Candidate(0, "Sergey Sergeev",
                 "Senior Java Developer, microservices and Docker",
-                LocalDateTime.now()));
+                LocalDateTime.now(), 3));
         save(new Candidate(0, "Bob Brown",
                 "Frontend developer with React and JavaScript",
-                LocalDateTime.now()));
+                LocalDateTime.now(), 1));
         save(new Candidate(0, "Rob Wilson",
                 "QA engineer with automation testing skills",
-                LocalDateTime.now()));
+                LocalDateTime.now(), 2));
         save(new Candidate(0, "John Miller",
                 "DevOps engineer, CI/CD and Kubernetes",
-                LocalDateTime.now()));
+                LocalDateTime.now(), 3));
     }
 
     @Override
@@ -57,7 +57,8 @@ public class MemoryCandidateRepository implements CandidateRepository {
                         id,
                         candidate.getName(),
                         candidate.getDescription(),
-                        oldCandidate.getCreatedAt()
+                        oldCandidate.getCreatedAt(),
+                        candidate.getCityId()
                 )) != null;
     }
 

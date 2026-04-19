@@ -16,17 +16,21 @@ public class Candidate {
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDateTime createdAt = LocalDateTime.now();
 
+    private int cityId;
+
     public Candidate() {
     }
 
     public Candidate(int id,
                      String name,
                      String description,
-                     LocalDateTime createdAt) {
+                     LocalDateTime createdAt,
+                     int cityId) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.createdAt = createdAt;
+        this.cityId = cityId;
     }
 
     public int getId() {
@@ -59,6 +63,14 @@ public class Candidate {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public int getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(int cityId) {
+        this.cityId = cityId;
     }
 
     @Override
