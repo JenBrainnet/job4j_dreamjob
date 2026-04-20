@@ -18,6 +18,8 @@ public class Candidate {
 
     private int cityId;
 
+    private int fileId;
+
     public Candidate() {
     }
 
@@ -25,12 +27,14 @@ public class Candidate {
                      String name,
                      String description,
                      LocalDateTime createdAt,
-                     int cityId) {
+                     int cityId,
+                     int fileId) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.createdAt = createdAt;
         this.cityId = cityId;
+        this.fileId = fileId;
     }
 
     public int getId() {
@@ -71,6 +75,14 @@ public class Candidate {
 
     public void setCityId(int cityId) {
         this.cityId = cityId;
+    }
+
+    public int getFileId() {
+        return fileId;
+    }
+
+    public void setFileId(int fileId) {
+        this.fileId = fileId;
     }
 
     @Override
