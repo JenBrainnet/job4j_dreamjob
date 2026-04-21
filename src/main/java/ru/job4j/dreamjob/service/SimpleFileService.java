@@ -19,9 +19,9 @@ public class SimpleFileService implements FileService {
 
     private final String storageDirectory;
 
-    public SimpleFileService(FileRepository fileRepository,
+    public SimpleFileService(FileRepository sql2oFileRepository,
                              @Value("${file.directory}") String storageDirectory) {
-        this.fileRepository = fileRepository;
+        this.fileRepository = sql2oFileRepository;
         this.storageDirectory = storageDirectory;
         createStorageDirectory(storageDirectory);
     }
@@ -38,11 +38,11 @@ public class SimpleFileService implements FileService {
     public File save(FileDto fileDto) {
         var path = getNewFilePath(fileDto.getName());
         writeFileBytes(path, fileDto.getContent());
-        return fileRepository.save(new File(path, fileDto.getName()));
+        return fileRepository.save(new File(fileDto.getName(), path));
     }
 
     private String getNewFilePath(String sourceName) {
-        return storageDirectory + java.io.File.separator + UUID.randomUUID() + sourceName;
+        return storageDirectory + java.io.File.separator + UUID.randomUUID() + "_" + sourceName;
     }
 
     private void writeFileBytes(String path, byte[] content) {

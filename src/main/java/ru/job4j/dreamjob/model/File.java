@@ -10,9 +10,9 @@ public class File {
 
     private String path;
 
-    public File(String path, String name) {
-        this.path = path;
+    public File(String name, String path) {
         this.name = name;
+        this.path = path;
     }
 
     public int getId() {

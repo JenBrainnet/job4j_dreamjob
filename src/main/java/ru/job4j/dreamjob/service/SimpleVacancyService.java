@@ -17,9 +17,9 @@ public class SimpleVacancyService implements VacancyService {
 
     private final FileService fileService;
 
-    public SimpleVacancyService(VacancyRepository vacancyRepository,
+    public SimpleVacancyService(VacancyRepository sql2oVacancyRepository,
                                 FileService fileService) {
-        this.vacancyRepository = vacancyRepository;
+        this.vacancyRepository = sql2oVacancyRepository;
         this.fileService = fileService;
     }
 
@@ -50,7 +50,7 @@ public class SimpleVacancyService implements VacancyService {
     public boolean update(Vacancy vacancy, FileDto image) {
         var isNewFileEmpty = image.getContent().length == 0;
         if (isNewFileEmpty) {
-            vacancyRepository.update(vacancy);
+            return vacancyRepository.update(vacancy);
         }
         var oldFileId = vacancy.getFileId();
         saveNewFile(vacancy, image);
