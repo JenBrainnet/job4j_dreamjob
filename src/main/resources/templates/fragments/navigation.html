@@ -3,12 +3,15 @@
     <div class="container">
         <a class="navbar-brand" th:href="@{/}">Dream Job</a>
         <div class="collapse navbar-collapse">
-            <div class="navbar-nav">
+            <div class="navbar-nav mr-auto">
                 <a class="nav-item nav-link active" th:href="@{/}">Home</a>
                 <a class="nav-item nav-link" th:href="@{/vacancies}">Vacancies</a>
                 <a class="nav-item nav-link" th:href="@{/candidates}">Candidates</a>
                 <a class="nav-item nav-link" th:href="@{/vacancies/create}">Create vacancy</a>
                 <a class="nav-item nav-link" th:href="@{/candidates/create}">Create resume</a>
+            </div>
+            <div class="d-flex">
+                <a class="nav-link text-secondary" th:href="@{/users/register}">Sign up</a>
             </div>
         </div>
     </div>
