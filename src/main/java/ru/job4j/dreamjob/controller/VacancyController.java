@@ -1,11 +1,13 @@
 package ru.job4j.dreamjob.controller;
 
+import jakarta.servlet.http.HttpSession;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.job4j.dreamjob.dto.FileDto;
+import ru.job4j.dreamjob.model.User;
 import ru.job4j.dreamjob.model.Vacancy;
 import ru.job4j.dreamjob.service.CityService;
 import ru.job4j.dreamjob.service.VacancyService;
@@ -25,13 +27,15 @@ public class VacancyController {
     }
 
     @GetMapping
-    public String getAll(Model model) {
+    public String getAll(Model model, HttpSession session) {
+        addUserToModel(model, session);
         model.addAttribute("vacancies", vacancyService.findAll());
         return "vacancies/list";
     }
 
     @GetMapping("/create")
-    public String getCreationPage(Model model) {
+    public String getCreationPage(Model model, HttpSession session) {
+        addUserToModel(model, session);
         model.addAttribute("cities", cityService.findAll());
         return "vacancies/create";
     }
@@ -39,18 +43,23 @@ public class VacancyController {
     @PostMapping("/create")
     public String create(@ModelAttribute Vacancy vacancy,
                          @RequestParam MultipartFile file,
-                         Model model) {
+                         Model model,
+                         HttpSession session) {
         try {
             vacancyService.save(vacancy, new FileDto(file.getOriginalFilename(), file.getBytes()));
             return "redirect:/vacancies";
         } catch (Exception exception) {
+            addUserToModel(model, session);
             model.addAttribute("message", exception.getMessage());
             return "errors/404";
         }
     }
 
     @GetMapping("/{id}")
-    public String getById(Model model, @PathVariable int id) {
+    public String getById(Model model,
+                          @PathVariable int id,
+                          HttpSession session) {
+        addUserToModel(model, session);
         var vacancyOptional = vacancyService.findById(id);
         if (vacancyOptional.isEmpty()) {
             model.addAttribute("message", "Vacancy with the specified ID not found");
@@ -64,28 +73,41 @@ public class VacancyController {
     @PostMapping("/update")
     public String update(@ModelAttribute Vacancy vacancy,
                          @RequestParam MultipartFile file,
-                         Model model) {
+                         Model model,
+                         HttpSession session) {
         try {
             var isUpdated = vacancyService.update(vacancy, new FileDto(file.getOriginalFilename(), file.getBytes()));
             if (!isUpdated) {
+                addUserToModel(model, session);
                 model.addAttribute("message", "Vacancy with the specified ID not found");
                 return "errors/404";
             }
             return "redirect:/vacancies";
         } catch (Exception exception) {
+            addUserToModel(model, session);
             model.addAttribute("message", exception.getMessage());
             return "errors/404";
         }
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(Model model, @PathVariable int id) {
+    public String delete(Model model, @PathVariable int id, HttpSession session) {
         var isDeleted = vacancyService.deleteById(id);
         if (!isDeleted) {
+            addUserToModel(model, session);
             model.addAttribute("message", "Vacancy with the specified ID not found");
             return "errors/404";
         }
         return "redirect:/vacancies";
+    }
+
+    private void addUserToModel(Model model, HttpSession session) {
+        var user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setName("Guest");
+        }
+        model.addAttribute("user", user);
     }
 
 }
